@@ -56,3 +56,34 @@ class RespondFriendRequestView(generics.UpdateAPIView):
         friend_request.status = status
         friend_request.save()
         return Response(FriendRequestSerializer(friend_request).data)
+
+
+from rest_framework import generics, permissions
+from django.contrib.auth import get_user_model
+from core.serializers import UserSearchSerializer
+
+User = get_user_model()
+
+
+class ListFriendsView(generics.ListAPIView):
+    serializer_class = UserSearchSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        user = self.request.user
+        friends = User.objects.filter(
+            id__in=FriendRequest.objects.filter(
+                (Q(from_user=user) & Q(status='accepted')) |
+                (Q(to_user=user) & Q(status='accepted'))
+            ).values_list('from_user', 'to_user')
+        ).exclude(id=user.id)
+        return friends
+
+
+class ListPendingFriendRequestsView(generics.ListAPIView):
+    serializer_class = FriendRequestSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        user = self.request.user
+        return FriendRequest.objects.filter(to_user=user, status='pending')
