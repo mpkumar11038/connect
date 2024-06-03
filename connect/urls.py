@@ -25,6 +25,8 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path('api/auth/login/', views.obtain_auth_token),
     path('api/auth/', include('core.urls')),
+    path('api/friends/', include('friends.urls')),
+
 ]
 
 schema_view = get_schema_view(
