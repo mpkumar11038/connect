@@ -42,8 +42,15 @@ class User(AbstractUser):
     Custom user model for the application.
     """
     username = None
-    email = models.EmailField(_('email address'), unique=True)
+    email = models.EmailField(_('email address'), unique=True, db_index=True)
 
     objects = UserManager()
     REQUIRED_FIELDS = []
     USERNAME_FIELD = 'email'
+
+    class Meta:
+        indexes = [
+            models.Index(fields=['email']),
+            models.Index(fields=['first_name']),
+            models.Index(fields=['last_name']),
+        ]
