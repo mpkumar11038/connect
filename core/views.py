@@ -1,4 +1,3 @@
-from django.conf import settings
 from django.db.models import Q
 from rest_framework import generics, permissions
 from rest_framework.pagination import PageNumberPagination
@@ -27,8 +26,8 @@ class UserSearchView(generics.ListAPIView):
 
     def get_queryset(self):
         keyword = self.request.query_params.get('search', '').strip()
-        if "@" in keyword:
-            return User.objects.filter(Q(email__icontains=keyword))
+        if '@' in keyword:
+            return User.objects.filter(email__iexact=keyword)
         else:
             return User.objects.filter(Q(first_name__icontains=keyword) | Q(last_name__icontains=keyword))
 
