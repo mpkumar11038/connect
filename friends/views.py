@@ -1,11 +1,13 @@
 from datetime import timedelta
 
 from django.contrib.auth import get_user_model
+from django.db.models import Q
 from django.utils import timezone
 from rest_framework import generics, permissions
 from rest_framework.exceptions import ValidationError
 from rest_framework.response import Response
 
+from core.serializers import UserSearchSerializer
 from .models import FriendRequest
 from .serializers import FriendRequestSerializer
 
@@ -56,13 +58,6 @@ class RespondFriendRequestView(generics.UpdateAPIView):
         friend_request.status = status
         friend_request.save()
         return Response(FriendRequestSerializer(friend_request).data)
-
-
-from rest_framework import generics, permissions
-from django.contrib.auth import get_user_model
-from core.serializers import UserSearchSerializer
-
-User = get_user_model()
 
 
 class ListFriendsView(generics.ListAPIView):
