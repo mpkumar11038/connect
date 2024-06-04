@@ -20,7 +20,7 @@ This project, Connect, provides a social networking API built with Django REST F
 - Clone the repository:
    
    ```bash
-   git clone https://<your_repository_url>
+   git clone https://github.com/mpkumar11038/connect.git
    ```
 
 - Navigate to the project directory:
