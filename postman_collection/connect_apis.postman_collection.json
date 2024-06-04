@@ -1,0 +1,190 @@
+{
+	"info": {
+		"_postman_id": "147f7cea-1d79-4ae4-9e40-29a47e76f995",
+		"name": "connect_apis",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "35991187"
+	},
+	"item": [
+		{
+			"name": "signup",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "email",
+							"value": "admin_2@gmail.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "#Admin@123",
+							"type": "text"
+						}
+					]
+				},
+				"url": "http://localhost:8000/api/user/signup/"
+			},
+			"response": []
+		},
+		{
+			"name": "search_users",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token fe48c49d2864250376f72d94b56825e41b6227fe",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8000/api/user/search/?search=admin@gmail.com&page=1 ",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"user",
+						"search",
+						""
+					],
+					"query": [
+						{
+							"key": "search",
+							"value": "admin@gmail.com"
+						},
+						{
+							"key": "page",
+							"value": "1 "
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "username",
+							"value": "admin_2@gmail.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "#Admin@123",
+							"type": "text"
+						}
+					]
+				},
+				"url": "http://localhost:8000/api/auth/login/"
+			},
+			"response": []
+		},
+		{
+			"name": "send_friend_request",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token fe48c49d2864250376f72d94b56825e41b6227fe",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "to_user",
+							"value": "2",
+							"type": "text"
+						}
+					]
+				},
+				"url": "http://localhost:8000/api/friends/send-friend-request/"
+			},
+			"response": []
+		},
+		{
+			"name": "respond_friend_request",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token 1eba0cb3fe7c6dcd269af2679945ad32f7afc12d",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "status",
+							"value": "accepted",
+							"type": "text"
+						}
+					]
+				},
+				"url": "http://localhost:8000/api/friends/respond-friend-request/1/"
+			},
+			"response": []
+		},
+		{
+			"name": "friends_list",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token 1eba0cb3fe7c6dcd269af2679945ad32f7afc12d",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": "http://localhost:8000/api/friends/list-friends/"
+			},
+			"response": []
+		},
+		{
+			"name": "pending_friends_requests",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token 1eba0cb3fe7c6dcd269af2679945ad32f7afc12d",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": "http://localhost:8000/api/friends/pending-friend-requests/"
+			},
+			"response": []
+		}
+	]
+}

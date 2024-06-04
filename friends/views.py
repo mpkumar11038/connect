@@ -66,13 +66,17 @@ class ListFriendsView(generics.ListAPIView):
 
     def get_queryset(self):
         user = self.request.user
-        friends = User.objects.filter(
-            id__in=FriendRequest.objects.filter(
-                (Q(from_user=user) & Q(status='accepted')) |
-                (Q(to_user=user) & Q(status='accepted'))
-            ).values_list('from_user', 'to_user')
-        ).exclude(id=user.id)
-        return friends
+        friends = FriendRequest.objects.filter(
+            (Q(from_user=user) & Q(status='accepted')) |
+            (Q(to_user=user) & Q(status='accepted'))
+        ).values_list('from_user', 'to_user')
+
+        friends_list = []
+        for friend in friends:
+            friends_list.extend(friend)
+
+        users = User.objects.filter(id__in=friends_list).exclude(id=user.id)
+        return users
 
 
 class ListPendingFriendRequestsView(generics.ListAPIView):
